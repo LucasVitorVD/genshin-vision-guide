@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import AppSidebar from "@/components/app-sidebar/AppSidebar"
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -19,16 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        className={`${dmSans.variable} antialiased`}
-      >
-        <div className="flex flex-col min-h-screen">
-          <header></header>
-          <main className="flex flex-col flex-1">
-            {children}
-          </main>
-          <footer></footer>
-        </div>
+      <body className={`${poppins.variable} antialiased`}>
+        <SidebarProvider>
+          <AppSidebar />
+
+          <div className="flex flex-col min-h-screen">
+            <main className="flex flex-col flex-1">
+              {children}
+            </main>
+            <footer></footer>
+          </div>
+        </SidebarProvider>
       </body>
     </html>
   );
